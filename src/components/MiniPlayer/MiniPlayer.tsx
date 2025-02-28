@@ -1,6 +1,5 @@
-// components/MiniPlayer/MiniPlayer.tsx
 import React from "react";
-
+import { IoPlayCircle, IoPauseCircle } from "react-icons/io5";
 import css from "./MiniPlayer.module.css";
 
 interface Track {
@@ -29,7 +28,13 @@ export const MiniPlayer: React.FC<MiniPlayerProps> = ({
       <div className={css.marquee}>
         <span>{`${track.title} - ${track.artist}`}</span>
       </div>
-      <div className={css.status}>{isPlaying ? "Playing" : "Paused"}</div>
+      <div className={css.playButton}>
+        {isPlaying ? (
+          <IoPauseCircle size={32} className={css.playIcon} />
+        ) : (
+          <IoPlayCircle size={32} className={css.playIcon} />
+        )}
+      </div>
     </div>
   );
 };

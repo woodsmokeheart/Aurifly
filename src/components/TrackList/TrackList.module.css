@@ -3,14 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.trackList::-webkit-scrollbar {
-  display: none;
+  padding-bottom: 130px;
 }
 
 .trackItem {
@@ -24,6 +17,10 @@
   position: relative;
   overflow: hidden;
   min-height: 100px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
 }
 
 .trackItem::before {
@@ -68,11 +65,15 @@
 .trackPoster {
   width: 80px;
   height: 80px;
-  border-radius: 12px;
-  margin-right: 20px; /* Увеличиваем отступ справа */
+  border-radius: 7px;
+  margin-right: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
   object-fit: cover;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
 }
 
 .trackItem:hover .trackPoster {
@@ -123,7 +124,7 @@
   }
 
   .trackItem {
-    padding: 15px;
+    padding: 13px;
     min-height: 80px;
   }
 

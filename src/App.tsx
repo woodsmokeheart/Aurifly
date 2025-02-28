@@ -4,13 +4,11 @@ import { Feed } from "./pages/Feed/Feed";
 import { Collections } from "./pages/Collections/Collections";
 import { Profile } from "./pages/Profile/Profile";
 import { BottomBar } from "./components/BottomBar/BottomBar";
-import { MiniPlayer } from "./components/MiniPlayer/MiniPlayer";
 import { PlayerModal } from "./components/PlayerModal/PlayerModal";
 
 import { tracks } from "./components/TrackList/useTracks";
 
 import css from "./App.module.css";
-
 
 interface Track {
   id: number;
@@ -71,19 +69,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className={css.wrapper}>
-        {currentTrack && (
-          <MiniPlayer
-            track={currentTrack}
-            isPlaying={isPlaying}
-            onOpen={() => setIsModalOpen(true)}
-          />
-        )}
-
-        <div
-          className={`${css.pageContainer} ${
-            currentTrack ? css.withMiniPlayer : ""
-          }`}
-        >
+        <div className={css.pageContainer}>
           <Routes>
             <Route
               path="/"
@@ -100,7 +86,11 @@ function App() {
           </Routes>
         </div>
 
-        <BottomBar />
+        <BottomBar
+          currentTrack={currentTrack}
+          isPlaying={isPlaying}
+          setIsModalOpen={setIsModalOpen}
+        />
 
         {isModalOpen && currentTrack && (
           <PlayerModal

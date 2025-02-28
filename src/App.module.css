@@ -14,10 +14,10 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding-bottom: 60px;
-  transition: padding-top 0.3s ease;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.withMiniPlayer {
-  padding-top: 60px;
+.pageContainer::-webkit-scrollbar {
+  display: none;
 }

@@ -1,18 +1,40 @@
-.bottomBar {
+.container {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 70px; /* Увеличиваем высоту */
-  background: rgba(25, 25, 25, 0.95); /* Темный полупрозрачный фон */
-  backdrop-filter: blur(10px); /* Размытие фона */
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.playerContainer {
+  transform: translateY(100%);
+  animation: slideUp 0.3s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.bottomBar {
+  height: 70px;
+  background: rgba(25, 25, 25, 0.95);
+  backdrop-filter: blur(10px);
   display: flex;
   justify-content: space-around;
   align-items: center;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
   padding: 0 20px;
 }
+
 
 .link {
   text-decoration: none;
