@@ -1,35 +1,30 @@
 .container {
-  width: 100%;
-  height: 100vh;
-  background: linear-gradient(to bottom, #1a1a1a, #2a2a2a);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  padding: 0 20px;
-}
-
-
-
-.container::before {
-  content: "";
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    45deg,
-    rgba(255, 107, 107, 0.05),
-    rgba(254, 202, 87, 0.05),
-    rgba(72, 219, 251, 0.05),
-    rgba(29, 209, 161, 0.05)
-  );
-  pointer-events: none;
+  bottom: 70px; /* Высота BottomBar */
+  background: linear-gradient(to bottom, #1a1a1a, #2a2a2a);
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.inner {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 480px) {
   .container {
     padding: 10px;
+    height: 100vh;
   }
 
   .title {

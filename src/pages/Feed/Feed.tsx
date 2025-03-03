@@ -29,15 +29,17 @@ export const Feed: React.FC<FeedProps> = ({
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   return (
-    <div className={css.container}>
-      <Banner cover={poster3} />
-      <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <TrackList
-        searchQuery={searchQuery}
-        audioRef={audioRef}
-        onTrackSelect={onTrackSelect}
-        onPlayingChange={onPlayingChange}
-      />
-    </div>
+      <div className={css.container}>
+          <div className={css.inner}>
+              <Banner cover={poster3} />
+              <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+              <TrackList
+                  searchQuery={searchQuery}
+                  audioRef={audioRef}
+                  onTrackSelect={onTrackSelect}
+                  onPlayingChange={onPlayingChange}
+              />
+          </div>
+      </div>
   );
 };
