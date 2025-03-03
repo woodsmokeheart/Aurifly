@@ -57,6 +57,31 @@ button:disabled {
   cursor: default;
 }
 
+button,
+a,
+input[type="button"],
+input[type="submit"] {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+button:focus,
+a:focus,
+input[type="button"]:focus,
+input[type="submit"]:focus {
+  outline: none;
+}
+
+/* Для Safari на iOS */
+button,
+a,
+input[type="button"],
+input[type="submit"] {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

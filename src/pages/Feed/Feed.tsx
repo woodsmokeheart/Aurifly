@@ -2,7 +2,6 @@ import { useState, RefObject } from "react";
 import { Banner } from "../../components/Banner/Banner";
 import { Search } from "../../components/Search/Search";
 import { TrackList } from "../../components/TrackList/TrackList";
-import poster3 from "../../assets/covers/333.jpg";
 
 import css from "./Feed.module.css";
 
@@ -31,7 +30,7 @@ export const Feed: React.FC<FeedProps> = ({
   return (
       <div className={css.container}>
           <div className={css.inner}>
-              <Banner cover={poster3} />
+              <Banner />
               <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
               <TrackList
                   searchQuery={searchQuery}
