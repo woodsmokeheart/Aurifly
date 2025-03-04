@@ -2,9 +2,7 @@ import {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import poster3 from "../../assets/covers/333.jpg";
 import {IoChevronBack, IoChevronForward} from "react-icons/io5";
-
 import css from "./Banner.module.css";
-
 
 interface Slide {
     image: string;
@@ -18,25 +16,25 @@ const slides: Slide[] = [
     {
         image: poster3,
         title: "Alteriat Custom Wear",
-        subtitle:'одежда с душой',
+        subtitle:'Одежда, созданная с душой, эксклюзивно для тебя.',
         link: "https://t.me/alteriat"
     },
     {
         image: poster3,
         title: "Мамина База",
-        subtitle:'дети- цветы жизни!',
+        subtitle:' Полезные, жизненные советы от мамы двух деток.',
         link: "https://t.me/bubuarina"
     },
     {
         image: poster3,
         title: "Криптанутый",
-        subtitle:'Зарабатываем без вложений',
+        subtitle:'Зарабатываем без вложений. Обучение для новичков!',
         link: "https://t.me/cryptanutyj"
     },
     {
         image: poster3,
         title: "Саня до Ляма",
-        subtitle:'все про криптовалюты',
+        subtitle:'Трейдер со стажем. Освещаю для вас топовые проекты.',
         link: "https://t.me/SanyadoLyama"
     }
 ];
@@ -48,7 +46,7 @@ export const Banner = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % slides.length);
-        }, 3000);
+        }, 5000);
 
         return () => clearInterval(interval);
     }, []);
@@ -105,7 +103,7 @@ export const Banner = () => {
                                 <h2 className={css.slideTitle}>{slide.title}</h2>
                                 <h5 className={css.slideSubTitle}>{slide.subtitle}</h5>
                                 <Link to={slide.link || ''} className={css.subscribeButton}>
-                                    Subscribe
+                                    Посмотреть
                                 </Link>
                             </div>
                         )}
