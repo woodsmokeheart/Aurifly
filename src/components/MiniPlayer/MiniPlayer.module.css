@@ -9,6 +9,9 @@
   cursor: pointer;
   overflow: hidden;
   position: relative;
+  -webkit-tap-highlight-color: transparent; /* Убираем мигание на iOS */
+  tap-highlight-color: transparent; /* Убираем мигание на других устройствах */
+  user-select: none; /* Предотвращаем выделение текста */
 }
 
 .miniPlayer::before,
@@ -24,11 +27,11 @@
 
 .miniPlayer::before {
   background: linear-gradient(
-    45deg,
-    rgba(255, 107, 107, 0.3),
-    rgba(254, 202, 87, 0.3),
-    rgba(72, 219, 251, 0.3),
-    rgba(29, 209, 161, 0.3)
+          45deg,
+          rgba(255, 107, 107, 0.3),
+          rgba(254, 202, 87, 0.3),
+          rgba(72, 219, 251, 0.3),
+          rgba(29, 209, 161, 0.3)
   );
   animation: waveAnimation 8s linear infinite;
   z-index: 0;
@@ -36,17 +39,16 @@
 
 .miniPlayer::after {
   background: linear-gradient(
-    -45deg,
-    rgba(255, 107, 107, 0.2),
-    rgba(254, 202, 87, 0.2),
-    rgba(72, 219, 251, 0.2),
-    rgba(29, 209, 161, 0.2)
+          -45deg,
+          rgba(255, 107, 107, 0.2),
+          rgba(254, 202, 87, 0.2),
+          rgba(72, 219, 251, 0.2),
+          rgba(29, 209, 161, 0.2)
   );
   animation: waveAnimation 10s linear infinite reverse;
   z-index: 0;
 }
 
-/* Обновляем анимацию вращения */
 @keyframes waveAnimation {
   0% {
     transform: translate(0, 0) rotate(0deg);
@@ -56,33 +58,37 @@
   }
 }
 
-.playButton {
+.playButton,
+.likeButton {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   width: 32px;
   height: 32px;
+  border: none;
   border-radius: 8px;
   background: linear-gradient(45deg, #ff6b6b, #feca57);
-  margin-left: 15px;
+  cursor: pointer;
+
+  margin-left: 10px;
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-.playIcon {
+.playIcon,
+.likeIcon {
   color: #fff;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   transition: all 0.3s ease;
-}
-
-.miniPlayer:hover .playIcon {
-  color: #ff6b6b;
-  filter: drop-shadow(0 0 8px rgba(255, 107, 107, 0.4));
 }
 
 .poster,
 .marquee,
 .status {
   position: relative;
+  z-index: 1;
 }
 
 .poster {
@@ -140,6 +146,22 @@
   box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.4);
 }
 
+@keyframes likeAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.likeIcon[filled="true"] {
+  animation: likeAnimation 0.3s ease;
+}
+
 @media (max-width: 480px) {
   .miniPlayer {
     padding: 0 10px;
@@ -152,6 +174,18 @@
 
   .marquee span {
     font-size: 14px;
+  }
+
+  .playButton,
+  .likeButton {
+    width: 28px;
+    height: 28px;
+  }
+
+  .playIcon,
+  .likeIcon {
+    width: 20px;
+    height: 20px;
   }
 
   .status {
