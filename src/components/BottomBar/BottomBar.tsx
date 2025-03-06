@@ -1,8 +1,7 @@
 import { NavLink } from "react-router-dom";
-import { MdCollections, MdCollectionsBookmark } from "react-icons/md";
+import { IoPersonCircleOutline } from "react-icons/io5";
 import { PiWaveform ,PiWaveformBold} from "react-icons/pi";
-
-import { CgProfile } from "react-icons/cg";
+import { HiCollection } from "react-icons/hi";
 import { MiniPlayer } from "../MiniPlayer/MiniPlayer";
 import { Track } from "../TrackList/TrackList";
 
@@ -52,11 +51,11 @@ export const BottomBar = ({
           {({ isActive }: { isActive: boolean }) => (
             <>
               {isActive ? (
-                <MdCollectionsBookmark size={24} />
+                <HiCollection size={24} />
               ) : (
-                <MdCollections size={24} />
+                <HiCollection size={24} />
               )}
-              <span>Collections</span>
+              <span>Library</span>
             </>
           )}
         </NavLink>
@@ -66,7 +65,7 @@ export const BottomBar = ({
             isActive ? `${css.link} ${css.active}` : css.link
           }
         >
-          <CgProfile size={24} />
+          <IoPersonCircleOutline size={24} />
           <span>Profile</span>
         </NavLink>
       </nav>
