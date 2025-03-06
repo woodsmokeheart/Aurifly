@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
-import { RiHome5Line, RiHome5Fill } from "react-icons/ri";
 import { MdCollections, MdCollectionsBookmark } from "react-icons/md";
+import { PiWaveform ,PiWaveformBold} from "react-icons/pi";
+
 import { CgProfile } from "react-icons/cg";
 import { MiniPlayer } from "../MiniPlayer/MiniPlayer";
 import { Track } from "../TrackList/TrackList";
@@ -37,8 +38,8 @@ export const BottomBar = ({
         >
           {({ isActive }: { isActive: boolean }) => (
             <>
-              {isActive ? <RiHome5Fill size={24} /> : <RiHome5Line size={24} />}
-              <span>Feed</span>
+              {isActive ? <PiWaveform size={24} /> : <PiWaveformBold size={24} />}
+              <span>Wave</span>
             </>
           )}
         </NavLink>
