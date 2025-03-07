@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import poster3 from "../../assets/covers/333.jpg";
 import {IoChevronBack, IoChevronForward} from "react-icons/io5";
 import css from "./Banner.module.css";
@@ -7,34 +7,34 @@ import css from "./Banner.module.css";
 interface Slide {
     image: string;
     title?: string;
-    subtitle?:string;
+    subtitle?: string;
     link?: string;
 }
 
 const slides: Slide[] = [
-    { image: poster3 },
+    {image: poster3},
     {
         image: poster3,
         title: "Alteriat Custom Wear",
-        subtitle:'Одежда, созданная с душой, эксклюзивно для тебя.',
+        subtitle: 'Одежда, созданная с душой, эксклюзивно для тебя.',
         link: "https://t.me/alteriat"
     },
     {
         image: poster3,
         title: "Мамина База",
-        subtitle:' Полезные, жизненные советы от мамы двух деток.',
+        subtitle: ' Полезные, жизненные советы от мамы двух деток.',
         link: "https://t.me/bubuarina"
     },
     {
         image: poster3,
         title: "Криптанутый",
-        subtitle:'Зарабатываем без вложений. Обучение для новичков!',
+        subtitle: 'Зарабатываем без вложений. Обучение для новичков!',
         link: "https://t.me/cryptanutyj"
     },
     {
         image: poster3,
         title: "Саня до Ляма",
-        subtitle:'Трейдер со стажем. Освещаю для вас топовые проекты.',
+        subtitle: 'Трейдер со стажем. Освещаю для вас топовые проекты.',
         link: "https://t.me/SanyadoLyama"
     }
 ];
@@ -94,14 +94,14 @@ export const Banner = () => {
                     key={index}
                     className={`${css.slide} ${index === currentIndex ? css.active : ""}`}
                 >
-                    <img src={slide.image} alt="" className={css.image} />
+                    <img src={slide.image} alt="" className={css.image}/>
                     <div className={css.overlay}>
                         {index === 0 ? (
                             <h1 className={css.mainTitle}>Aurifly</h1>
                         ) : (
                             <div className={css.content}>
-                                <h2 className={css.slideTitle}>{slide.title}</h2>
-                                <h5 className={css.slideSubTitle}>{slide.subtitle}</h5>
+                                <div className={css.slideTitle}>{slide.title}</div>
+                                <div className={css.slideSubTitle}>{slide.subtitle}</div>
                                 <Link to={slide.link || ''} className={css.subscribeButton}>
                                     Посмотреть
                                 </Link>
@@ -118,7 +118,7 @@ export const Banner = () => {
                     setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
                 }}
             >
-                <IoChevronBack />
+                <IoChevronBack/>
             </button>
             <button
                 className={`${css.navButton} ${css.nextButton}`}
@@ -127,7 +127,7 @@ export const Banner = () => {
                     setCurrentIndex((prev) => (prev + 1) % slides.length);
                 }}
             >
-                <IoChevronForward />
+                <IoChevronForward/>
             </button>
         </div>
     );

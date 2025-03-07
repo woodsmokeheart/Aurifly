@@ -83,16 +83,19 @@
 .slideTitle {
   color: #fff;
   font-size: 2rem;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
+  line-height: 16px;
 }
 
 .slideSubTitle {
   color: rgba(255, 255, 255, 0.8);
-  font-size: 14px;
-  margin-bottom: 15px;
+  font-size: 13px;
+  margin-bottom: 12px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   max-width: 270px;
+  line-height:18px;
 }
 
 .subscribeButton {
@@ -182,7 +185,7 @@
   }
 
   .slideSubTitle {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .subscribeButton {
