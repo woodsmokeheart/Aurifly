@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useRef, RefObject } from "react";
-import { Feed } from "./pages/Feed/Feed";
+import { Wave } from "./pages/Wave/Wave.tsx";
 import { Collections } from "./pages/Collections/Collections";
 import { Profile } from "./pages/Profile/Profile";
 import { BottomBar } from "./components/BottomBar/BottomBar";
@@ -74,7 +74,7 @@ function App() {
             <Route
               path="/"
               element={
-                <Feed
+                <Wave
                   audioRef={audioRef}
                   onTrackSelect={setCurrentTrack}
                   onPlayingChange={setIsPlaying}
