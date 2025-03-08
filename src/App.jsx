@@ -76,6 +76,47 @@ function App() {
         // }
     }, []);
 
+    useEffect(() => {
+        let ts; // Сохраняет начальную позицию касания
+
+        const onTouchStart = (e) => {
+            ts = e.touches[0].clientY; // Записывает начальную Y-координату касания
+        };
+
+        const onTouchMove = (e) => {
+            const el = scrollableEl.current;
+            if (el) {
+                const scroll = el.scrollTop;
+                const te = e.changedTouches[0].clientY;
+                // Если скролл в начале (scroll <= 0) и движение идет вниз (ts < te)
+                if (scroll <= 0 && ts < te) {
+                    e.preventDefault(); // Предотвращает действие по умолчанию, включая сворачивание
+                }
+            } else {
+                e.preventDefault();
+            }
+        };
+
+        const onTouchMoveWithException = (e) => {
+            const target = e.target.closest("#refer");
+            if (!target) {
+                onTouchMove(e);
+            }
+        };
+
+        // Добавление слушателей событий
+        document.documentElement.addEventListener("touchstart", onTouchStart, {
+            passive: false,
+        });
+        document.documentElement.addEventListener(
+            "touchmove",
+            onTouchMoveWithException,
+            { passive: false }
+        );
+
+        // ...
+    }, [location.pathname, overflow]);
+
     return (
         <BrowserRouter>
             <div className={css.wrapper}>
