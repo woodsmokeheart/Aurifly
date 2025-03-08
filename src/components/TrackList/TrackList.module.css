@@ -1,3 +1,6 @@
+/* ====================
+   Track List Container
+==================== */
 .trackList {
     flex: 1;
     display: flex;
@@ -6,6 +9,9 @@
     padding-bottom: 104px;
 }
 
+/* ====================
+   Track Item Base
+==================== */
 .trackItem {
     display: flex;
     align-items: center;
@@ -13,55 +19,48 @@
     background: rgba(255, 255, 255, 0.1);
     border-radius: 13px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
     position: relative;
     overflow: hidden;
     min-height: 80px;
-    -webkit-border-radius: 13px;
-    -moz-border-radius: 13px;
-    -ms-border-radius: 13px;
-    -o-border-radius: 13px;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.trackItem::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-            45deg,
-            rgba(255, 107, 107, 0.1),
-            rgba(254, 202, 87, 0.1)
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
+/* ====================
+   Hover & Active States
+==================== */
 .trackItem:hover {
     background: rgba(255, 255, 255, 0.15);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateZ(0);
 }
 
-.trackItem:hover::before {
-    opacity: 1;
-}
-
+/* Активное состояние (играющий трек) */
 .trackItem.playing {
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.trackItem.playing::before {
     background: linear-gradient(
             45deg,
             rgba(255, 107, 107, 0.2),
             rgba(254, 202, 87, 0.2)
     );
-    opacity: 1;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: trackActivate 0.3s ease;
 }
 
+/* Индикатор активного трека */
+.trackItem.playing::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #ff6b6b, #feca57);
+    border-radius: 13px 0 0 13px;
+}
+
+/* ====================
+   Track Poster
+==================== */
 .trackPoster {
     width: 64px;
     height: 64px;
@@ -70,17 +69,17 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
     object-fit: cover;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    -ms-border-radius: 6px;
-    -o-border-radius: 6px;
+    transform: translateZ(0);
+    will-change: transform;
 }
-
 
 .trackItem:hover .trackPoster {
-    transform: scale(1.05);
+    transform: scale(1.05) translateZ(0);
 }
 
+/* ====================
+   Track Info
+==================== */
 .trackInfo {
     flex-grow: 1;
     display: flex;
@@ -96,61 +95,26 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-
 .trackArtist {
     font-size: 13px;
     color: rgba(255, 255, 255, 0.7);
 }
 
-.trackDuration {
-    font-size: 11px;
-    margin-left: 16px;
-    padding: 6px 13px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.8);
-    min-width: 64px;
-    text-align: center;
+/* ====================
+   Animations
+==================== */
+@keyframes trackActivate {
+    0% {
+        transform: scale(0.98);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
-
-.trackItem.playing .trackDuration {
-    background: linear-gradient(45deg, #ff6b6b, #feca57);
-    color: #fff;
-    font-weight: 500;
-    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
-}
-
-.actionButton {
-    width: 100%;
-    padding: 12px;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 14px;
-    cursor: pointer;
-    text-align: left;
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
-    margin-bottom: 4px;
-}
-
-.actionButton:last-child {
-    margin-bottom: 0;
-}
-
-.actionButton:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.actionButton.danger {
-    color: #ff6b6b;
-}
-
-.actionButton.danger:hover {
-    background-color: rgba(255, 107, 107, 0.1);
-}
-
+/* ====================
+   Media Queries
+==================== */
 @media (max-width: 480px) {
     .trackList {
         gap: 8px;
@@ -173,11 +137,5 @@
 
     .trackArtist {
         font-size: 11px;
-    }
-
-    .trackDuration {
-        font-size: 10px;
-        padding: 5px 10px;
-        min-width: 48px;
     }
 }

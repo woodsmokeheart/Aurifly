@@ -1,195 +1,319 @@
+/* ====================
+   Base Container
+==================== */
 .miniPlayer {
-  width: 100%;
-  height: 60px;
-  background: rgba(25, 25, 25, 0.9);
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  overflow: hidden;
-  position: relative;
-  -webkit-tap-highlight-color: transparent; /* Убираем мигание на iOS */
-  tap-highlight-color: transparent; /* Убираем мигание на других устройствах */
-  user-select: none; /* Предотвращаем выделение текста */
+    width: 100%;
+    height: 60px;
+    background: rgba(25, 25, 25, 0.9);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* ====================
+   Adjacent Tracks
+==================== */
+.adjacentTrack {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    background: rgba(25, 25, 25, 0.9);
+    pointer-events: none;
+    opacity: 0; /* Изначально скрыты */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    transform-origin: center center;
+}
+
+.prevTrack {
+    left: -100%;
+    transform: translateX(0);
+}
+
+.nextTrack {
+    right: -100%;
+    transform: translateX(0);
+}
+
+
+/* ====================
+   Content Container
+==================== */
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    position: relative;
+    cursor: pointer;
+    background: rgba(25, 25, 25, 0.9);
+    z-index: 3;
+
+    transform: translateX(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+    user-select: none;
+    touch-action: pan-y pinch-zoom;
+}
+
+
+/* ====================
+   Background Effects
+==================== */
 .miniPlayer::before,
 .miniPlayer::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  pointer-events: none;
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
 }
 
 .miniPlayer::before {
-  background: linear-gradient(
-          45deg,
-          rgba(255, 107, 107, 0.3),
-          rgba(254, 202, 87, 0.3),
-          rgba(72, 219, 251, 0.3),
-          rgba(29, 209, 161, 0.3)
-  );
-  animation: waveAnimation 8s linear infinite;
-  z-index: 0;
+    background: linear-gradient(
+            45deg,
+            rgba(255, 107, 107, 0.3),
+            rgba(254, 202, 87, 0.3),
+            rgba(72, 219, 251, 0.3),
+            rgba(29, 209, 161, 0.3)
+    );
+    animation: waveAnimation 8s linear infinite;
+    z-index: 0;
 }
 
 .miniPlayer::after {
-  background: linear-gradient(
-          -45deg,
-          rgba(255, 107, 107, 0.2),
-          rgba(254, 202, 87, 0.2),
-          rgba(72, 219, 251, 0.2),
-          rgba(29, 209, 161, 0.2)
-  );
-  animation: waveAnimation 10s linear infinite reverse;
-  z-index: 0;
+    background: linear-gradient(
+            -45deg,
+            rgba(255, 107, 107, 0.2),
+            rgba(254, 202, 87, 0.2),
+            rgba(72, 219, 251, 0.2),
+            rgba(29, 209, 161, 0.2)
+    );
+    animation: waveAnimation 10s linear infinite reverse;
+    z-index: 0;
 }
 
-@keyframes waveAnimation {
-  0% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-  100% {
-    transform: translate(0, 0) rotate(360deg);
-  }
+/* ====================
+   Swipe Effects
+==================== */
+.content.swiping {
+    transition: none;
+    transform-origin: center center;
 }
 
+.content.swiping::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+            90deg,
+            rgba(255, 107, 107, 0.2) 0%,
+            transparent 20%,
+            transparent 80%,
+            rgba(254, 202, 87, 0.2) 100%
+    );
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.adjacentTrack.visible {
+    transform: scale(0.95);
+}
+
+/* ====================
+   Poster Styles
+==================== */
+.poster {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    margin-right: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    position: relative;
+
+}
+
+.miniPlayer:hover .poster {
+    transform: scale(1.05);
+}
+
+/* ====================
+   Text Marquee
+==================== */
+.marquee {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.marquee span {
+    display: inline-block;
+    animation: marquee 15s linear infinite;
+    font-size: 16px;
+}
+
+/* ====================
+   Control Buttons
+==================== */
 .playButton,
 .likeButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  width: 32px;
-  height: 32px;
-  border: none;
-  border-radius: 8px;
-  background: linear-gradient(45deg, #ff6b6b, #feca57);
-  cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #ff6b6b, #feca57);
+    cursor: pointer;
 
-  margin-left: 10px;
-  -webkit-tap-highlight-color: transparent;
-  tap-highlight-color: transparent;
-  touch-action: manipulation;
+    /* Оптимизации для мобильных */
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.likeButton {
+    margin: 0 10px;
 }
 
 .playIcon,
 .likeIcon {
-  color: #fff;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-  transition: all 0.3s ease;
+    color: #fff;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    transition: all 0.3s ease;
 }
 
-.poster,
-.marquee,
+/* ====================
+   Status Styles
+==================== */
 .status {
-  position: relative;
-  z-index: 1;
+    margin-left: 15px;
+    background: linear-gradient(45deg, #ff6b6b, #feca57);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    text-shadow: none;
+    position: relative;
+    z-index: 1;
 }
 
-.poster {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  margin-right: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
-}
-
-.miniPlayer:hover .poster {
-  transform: scale(1.05);
-}
-
-.marquee {
-  flex: 1;
-  overflow: hidden;
-  white-space: nowrap;
-  color: #fff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.marquee span {
-  display: inline-block;
-  animation: marquee 15s linear infinite;
-  font-size: 16px;
+/* ====================
+   Animations
+==================== */
+@keyframes waveAnimation {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg);
+    }
 }
 
 @keyframes marquee {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
-.status {
-  margin-left: 15px;
-  background: linear-gradient(45deg, #ff6b6b, #feca57);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 6px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 107, 107, 0.3);
-  text-shadow: none;
-}
-
-.miniPlayer:hover {
-  background: rgba(35, 35, 35, 0.95);
-  box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.4);
+@keyframes trackChange {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 @keyframes likeAnimation {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.miniPlayer.trackChanging {
+    animation: trackChange 0.3s ease;
 }
 
 .likeIcon[filled="true"] {
-  animation: likeAnimation 0.3s ease;
+    animation: likeAnimation 0.3s ease;
 }
 
+/* ====================
+   Media Queries
+==================== */
 @media (max-width: 480px) {
-  .miniPlayer {
-    padding: 0 10px;
-  }
+    .content {
+        padding: 0 10px;
+    }
 
-  .poster {
-    width: 32px;
-    height: 32px;
-  }
+    .adjacentTrack {
+        padding: 0 10px;
+    }
 
-  .marquee span {
-    font-size: 14px;
-  }
+    .poster {
+        width: 32px;
+        height: 32px;
+    }
 
-  .playButton,
-  .likeButton {
-    width: 32px;
-    height: 32px;
-  }
+    .marquee span {
+        font-size: 14px;
+    }
 
-  .playIcon,
-  .likeIcon {
-    width: 20px;
-    height: 20px;
-  }
+    .playButton,
+    .likeButton {
+        width: 32px;
+        height: 32px;
+    }
 
-  .status {
-    font-size: 12px;
-    padding: 4px 8px;
-  }
+    .playIcon,
+    .likeIcon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .status {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
 }

@@ -1,123 +1,121 @@
 .container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  z-index: 1000;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
 }
 
 .playerContainer {
-  transform: translateY(100%);
-  animation: slideUp 0.3s ease-out forwards;
+    transform: translateY(100%);
+    animation: slideUp 0.3s ease-out forwards;
 }
 
 @keyframes slideUp {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .bottomBar {
-  height: 70px;
-  background: rgba(25, 25, 25, 0.95);
-  backdrop-filter: blur(10px);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
-  padding: 0 20px;
+    height: 70px;
+    background: rgba(25, 25, 25, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+    padding: 0 20px;
 }
 
 
 .link {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.6);
-  padding: 12px 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  position: relative;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 12px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
 .link:hover {
-  color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .active {
-  color: #fff;
-  position: relative;
+    color: #fff;
+    position: relative;
 }
 
 .active::before {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20px;
-  height: 3px;
-  background: linear-gradient(45deg, #ff6b6b, #feca57);
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background: linear-gradient(45deg, #ff6b6b, #feca57);
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
 }
 
-/* Добавляем подсветку при наведении */
 .link::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 107, 107, 0.1) 0%,
-    transparent 70%
-  );
-  transform: translate(-50%, -50%) scale(0.8);
-  opacity: 0;
-  transition: all 0.3s ease;
-  pointer-events: none;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+            circle,
+            rgba(255, 107, 107, 0.1) 0%,
+            transparent 70%
+    );
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
 }
 
 .link:hover::after {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .active::after {
-  background: radial-gradient(
-    circle,
-    rgba(255, 107, 107, 0.2) 0%,
-    transparent 70%
-  );
-  opacity: 1;
+    background: radial-gradient(
+            circle,
+            rgba(255, 107, 107, 0.2) 0%,
+            transparent 70%
+    );
+    opacity: 1;
 }
 
-/* Медиа-запрос для мобильных устройств */
 @media (max-width: 480px) {
-  .bottomBar {
-    height: 60px;
-    padding: 0 10px;
-  }
+    .bottomBar {
+        height: 60px;
+        padding: 0 10px;
+    }
 
-  .link {
-    padding: 8px 16px;
-    font-size: 12px;
-  }
+    .link {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
 
-  .active::before {
-    width: 16px;
-    height: 2px;
-  }
+    .active::before {
+        width: 16px;
+        height: 2px;
+    }
 }
