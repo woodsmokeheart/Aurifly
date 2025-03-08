@@ -1,6 +1,6 @@
+// MiniPlayer.tsx
 import React, {useState} from "react";
 import {IoPlayCircle, IoPauseCircle, IoHeart, IoHeartOutline} from "react-icons/io5";
-
 import css from "./MiniPlayer.module.css";
 
 interface Track {
@@ -35,7 +35,11 @@ export const MiniPlayer = ({
     const [touchStart, setTouchStart] = useState<number | null>(null);
     const [touchEnd, setTouchEnd] = useState<number | null>(null);
     const [isSwiping, setIsSwiping] = useState(false);
-    const minSwipeDistance = 50;
+
+    // Определяем минимальное расстояние свайпа в зависимости от ширины экрана
+    const minSwipeDistance = window.innerWidth <= 480 ? 30 : 50;
+    // Добавляем коэффициент для более быстрого появления соседних треков
+    const opacityDivisor = window.innerWidth <= 480 ? 100 : 200;
 
     const handleLike = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -66,15 +70,14 @@ export const MiniPlayer = ({
             if (swipeDistance > 0) {
                 // Свайп влево - показываем следующий трек
                 nextTrack.style.transform = `translateX(${-swipeDistance}px)`;
-                nextTrack.style.opacity = `${Math.min(Math.abs(swipeDistance) / 200, 0.7)}`;
+                nextTrack.style.opacity = `${Math.min(Math.abs(swipeDistance) / opacityDivisor, 0.7)}`;
             } else {
                 // Свайп вправо - показываем предыдущий трек
                 prevTrack.style.transform = `translateX(${-swipeDistance}px)`;
-                prevTrack.style.opacity = `${Math.min(Math.abs(swipeDistance) / 200, 0.7)}`;
+                prevTrack.style.opacity = `${Math.min(Math.abs(swipeDistance) / opacityDivisor, 0.7)}`;
             }
         }
     };
-
 
     const onTouchEnd = (e: React.TouchEvent) => {
         if (!touchStart || !touchEnd) return;
@@ -105,7 +108,6 @@ export const MiniPlayer = ({
         }
     };
 
-    // Отменяем свайп если пользователь отменил жест
     const onTouchCancel = (e: React.TouchEvent) => {
         const element = e.currentTarget as HTMLElement;
         const parentElement = element.parentElement as HTMLElement;
@@ -123,7 +125,6 @@ export const MiniPlayer = ({
         setTouchStart(null);
         setTouchEnd(null);
     };
-
 
     return (
         <div className={css.miniPlayer}>

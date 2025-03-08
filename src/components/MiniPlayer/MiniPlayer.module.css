@@ -23,8 +23,8 @@
     padding: 0 20px;
     background: rgba(25, 25, 25, 0.9);
     pointer-events: none;
-    opacity: 0; /* Изначально скрыты */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 2;
     transform-origin: center center;
 }
@@ -39,7 +39,6 @@
     transform: translateX(0);
 }
 
-
 /* ====================
    Content Container
 ==================== */
@@ -53,17 +52,14 @@
     cursor: pointer;
     background: rgba(25, 25, 25, 0.9);
     z-index: 3;
-
     transform: translateX(0);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
-
     -webkit-tap-highlight-color: transparent;
     tap-highlight-color: transparent;
     user-select: none;
     touch-action: pan-y pinch-zoom;
 }
-
 
 /* ====================
    Background Effects
@@ -77,6 +73,7 @@
     width: 200%;
     height: 200%;
     pointer-events: none;
+
 }
 
 .miniPlayer::before {
@@ -88,7 +85,6 @@
             rgba(29, 209, 161, 0.3)
     );
     animation: waveAnimation 8s linear infinite;
-    z-index: 0;
 }
 
 .miniPlayer::after {
@@ -100,7 +96,6 @@
             rgba(29, 209, 161, 0.2)
     );
     animation: waveAnimation 10s linear infinite reverse;
-    z-index: 0;
 }
 
 /* ====================
@@ -108,34 +103,14 @@
 ==================== */
 .content.swiping {
     transition: none;
-    transform-origin: center center;
-}
-
-.content.swiping::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-            90deg,
-            rgba(255, 107, 107, 0.2) 0%,
-            transparent 20%,
-            transparent 80%,
-            rgba(254, 202, 87, 0.2) 100%
-    );
-    opacity: 1;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
 }
 
 .adjacentTrack.visible {
-    transform: scale(0.95);
+    transform: scale(0.98);
 }
 
 /* ====================
-   Poster Styles
+   Track Elements
 ==================== */
 .poster {
     width: 40px;
@@ -145,16 +120,9 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
     position: relative;
-
+    z-index: 2;
 }
 
-.miniPlayer:hover .poster {
-    transform: scale(1.05);
-}
-
-/* ====================
-   Text Marquee
-==================== */
 .marquee {
     flex: 1;
     overflow: hidden;
@@ -162,7 +130,7 @@
     color: #fff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .marquee span {
@@ -179,17 +147,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
     width: 32px;
     height: 32px;
     border: none;
     border-radius: 8px;
     background: linear-gradient(45deg, #ff6b6b, #feca57);
     cursor: pointer;
-
-    /* Оптимизации для мобильных */
+    position: relative;
+    z-index: 2;
     -webkit-tap-highlight-color: transparent;
-    tap-highlight-color: transparent;
     touch-action: manipulation;
 }
 
@@ -201,26 +167,7 @@
 .likeIcon {
     color: #fff;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-    transition: all 0.3s ease;
-}
-
-/* ====================
-   Status Styles
-==================== */
-.status {
-    margin-left: 15px;
-    background: linear-gradient(45deg, #ff6b6b, #feca57);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-weight: 600;
-    font-size: 14px;
-    padding: 6px 12px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 107, 107, 0.3);
-    text-shadow: none;
-    position: relative;
-    z-index: 1;
+    transition: transform 0.3s ease;
 }
 
 /* ====================
@@ -244,21 +191,6 @@
     }
 }
 
-@keyframes trackChange {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.5;
-        transform: scale(0.95);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
 @keyframes likeAnimation {
     0% {
         transform: scale(1);
@@ -271,10 +203,6 @@
     }
 }
 
-.miniPlayer.trackChanging {
-    animation: trackChange 0.3s ease;
-}
-
 .likeIcon[filled="true"] {
     animation: likeAnimation 0.3s ease;
 }
@@ -285,10 +213,12 @@
 @media (max-width: 480px) {
     .content {
         padding: 0 10px;
+        transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .adjacentTrack {
         padding: 0 10px;
+        transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .poster {
@@ -310,10 +240,5 @@
     .likeIcon {
         width: 20px;
         height: 20px;
-    }
-
-    .status {
-        font-size: 12px;
-        padding: 4px 8px;
     }
 }
